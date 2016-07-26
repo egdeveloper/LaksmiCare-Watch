@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="http://yourdomain/LaksmiCareWatch" version="1.0.0" viewmodes="maximized">
+    <access origin="http://146.185.143.85:8080" subdomains="true"/>
     <tizen:application id="YlCsNs7BoU.LaksmiCareWatch" package="YlCsNs7BoU" required_version="2.3.1"/>
     <content src="index.html"/>
     <feature name="http://tizen.org/feature/screen.size.normal"/>
     <icon src="icon.png"/>
     <name>LaksmiCareWatch</name>
     <tizen:privilege name="http://tizen.org/privilege/application.launch"/>
+    <tizen:privilege name="http://tizen.org/privilege/internet"/>
+    <tizen:privilege name="http://tizen.org/privilege/location"/>
+    <tizen:privilege name="http://tizen.org/privilege/healthinfo"/>
     <tizen:profile name="wearable"/>
     <tizen:setting hwkey-event="enable"/>
 </widget>
