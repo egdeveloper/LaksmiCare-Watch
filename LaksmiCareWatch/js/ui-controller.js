@@ -129,7 +129,7 @@ function onchangedCB(hrmInfo) {
                                 measureDate: (new Date()).toString(),
                                 gpsPosition: {
                                     latitude: position.coords.latitude,
-                                    logitude: position.coords.longitude
+                                    longitude: position.coords.longitude
                                 }
                         };
                     	sendState(window.guid, alarm, function(data) {
