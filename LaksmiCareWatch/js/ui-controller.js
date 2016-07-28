@@ -27,6 +27,7 @@ $(document).ready(function() {
         }
         
     }, false);
+    
 });
 
 function genDeviceId(){
@@ -48,12 +49,12 @@ function genDeviceId(){
 		req = tokens.get("default");
 		req.onsuccess = function(event){
 			if(req.result){
-					console.log(req.result.guid);
 					window.guid = req.result.guid;
 			}
 			else{
-				window.guid = {name: "default", guid : generateGUID()};
-				tokens.put(window.guid);
+				var guid = {name: "default", guid : generateGUID()};
+				window.guid = guid;
+				tokens.put(guid);
 				alert("Device id registered! Device id = " + window.guid);
 			}
 			
@@ -78,10 +79,10 @@ function resetDeviceId() {
 		req = tokens.get("default");
 		req.onsuccess = function(event){
 			if(req.result){
-					console.log(req.result.guid);
-					window.guid = {name: "default", guid : generateGUID()};
-					tokens.put(window.guid);
+					var guid = {name: "default", guid : generateGUID()};
+					tokens.put(guid);
 					alert("Device id changed!");
+					window.guid = guid.guid;
 			}
 			else{
 				alert("Device id not changed!");
@@ -98,12 +99,13 @@ function startHeartMonitor() {
 }
 
 function onchangedCB(hrmInfo) {
-    d1.innerHTML = "Heart Rate: " + hrmInfo.heartRate + "<br/>";
-    d2.innerHTML = "Peak-to-peak interval: " + hrmInfo.rRInterval + " milliseconds";
     counter++;
+    var heartButton = document.getElementById("heart-button");
+    
     if (counter > 10 && hrmInfo.heartRate > 0) {
         tizen.humanactivitymonitor.stop("HRM");
         counter = 0;
+        alert("Heart rate = " + hrmInfo.heartRate);
         window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
     	window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
     	if (!window.indexedDB) {
@@ -130,9 +132,18 @@ function onchangedCB(hrmInfo) {
                                     logitude: position.coords.longitude
                                 }
                         };
-                        
-                        sendAlarm(window.guid, alarm, function() {
-                         	alert("Alarm sended! Wait for help!");
+                    	sendState(window.guid, alarm, function(data) {
+                    		if(data.status == "normal")
+                    			alert("Health state sended");
+                    		else{
+                    			navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+
+                    			if (navigator.vibrate) {
+                    				navigator.vibrate(2000);
+                    			}
+                    			alert("Alert sended! Wait for help!");
+                    			
+                    		}
                          }, function() {
                          	alert("Can not send alarm!");
                          });

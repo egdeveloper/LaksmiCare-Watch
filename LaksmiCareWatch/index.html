@@ -8,6 +8,14 @@
     <link rel="stylesheet" media="all and (-tizen-geometric-shape: circle)" href="lib/tau/wearable/theme/default/tau.circle.min.css">
     <!-- load theme file for your application -->
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .grow { transition: all .2s ease-in-out; }
+        .grow:hover { transform: scale(1.1); }
+        #heart-button {
+		    display: block;
+		    margin: 0 auto;
+		}
+    </style>
 </head>
 
 <body>
@@ -15,25 +23,26 @@
         <!-- <header class="ui-header">
             <h2 class="ui-title">Heart rate monitor</h2>
         </header> -->
-        <div class="ui-content content-padding">  
-	        <div id="heart-monitor" >
-	        	<button onclick="startHeartMonitor();" class="ui-btn">Start heart rate monitor</button>
-	            <div id="heart-rate"></div>
-	            <div id="peak2peak"></div>
-	        </div>
+        <div class="ui-content content-padding">
+            <div id="heart-monitor">
+                <!-- <button onclick="startHeartMonitor();" class="ui-btn">Start heart rate monitor</button> -->
+                <img id="heart-button" src="img/heart.png" onclick="startHeartMonitor();" class="grow"></img>
+                <!-- <div id="heart-rate"></div>
+                <div id="peak2peak"></div> -->
+            </div>
         </div>
 
     </div>
     <div class="ui-page" id="page1">
         <div class="ui-content content-padding">
-	        <form>
-	        <label id="device-id-label">Device id: 
-	        
-	        </label>
-	        <br/>
-	        <div id="device-id"></div>
-	        <button onclick="resetDeviceId();">Reset device id</button>
-	        </form>
+            <form>
+                <label id="device-id-label">Device id:
+
+                </label>
+                <br/>
+                <div id="device-id"></div>
+                <button onclick="resetDeviceId();">Reset device id</button>
+            </form>
         </div>
     </div>
 

@@ -24,22 +24,21 @@ function getConfident(){
 	});
 }
 
-function sendAlarm(token, alarm, onSuccess, onFail){
-	console.log(HOST + "/user/health/alarm?token=" + token);
+function sendState(token, state, onSuccess, onFail){
+	console.log(HOST + "/user/health/state?token=" + token);
 	$.ajax({
-		url: HOST + "/user/health/alarm?token=" + token,
+		url: HOST + "/user/health/state?token=" + token,
 		method: "POST",
-/*		data: JSON.stringify(alarmSOS),*/
-		data: JSON.stringify(alarm),
+		data: JSON.stringify(state),
 		headers: {
 			"Content-Type" : "application/json"
 		},
 		success: onSuccess,
-		error: function(e){console.log("bad ajax" + e);}
+		error: onFail
 	});
 }
 
-function sendHeartStat(){
+function sendHeartStat(user, onSuccess, onFail){
 	$.ajax({
 		url: HOST + "/user/" + user.id + "/health/stat",
 		data: alarmSOS,
@@ -61,12 +60,4 @@ function findUserByToken(token, onSuccess, onFail){
 	    	onSuccess(data);
 	    }
 	}).fail(onFail);
-}
-
-function onAuthSuccess(){
-	
-}
-
-function onAuthFail(){
-	
 }
