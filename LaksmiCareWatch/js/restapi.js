@@ -1,6 +1,6 @@
-var user;
-const HOST = "http://146.185.143.85:8080";
 
+/*const HOST = "http://146.185.143.85:8080";*/
+const HOST = "http://192.168.0.156:8080";
 
 function authUser(login, password){
 	$.ajax({
@@ -24,15 +24,18 @@ function getConfident(){
 	});
 }
 
-function sendAlarm(alarmSOS){
+function sendAlarm(token, alarm, onSuccess, onFail){
+	console.log(HOST + "/user/health/alarm?token=" + token);
 	$.ajax({
-		url: HOST + "/user/" + user.id + "/health/alarm",
-		data: alarmSOS,
-		method: "POST"
-	}).done(function(data){
-		console.log(data);
-	}).fail(function(){
-		
+		url: HOST + "/user/health/alarm?token=" + token,
+		method: "POST",
+/*		data: JSON.stringify(alarmSOS),*/
+		data: JSON.stringify(alarm),
+		headers: {
+			"Content-Type" : "application/json"
+		},
+		success: onSuccess,
+		error: function(e){console.log("bad ajax" + e);}
 	});
 }
 
@@ -46,6 +49,18 @@ function sendHeartStat(){
 	}).fail(function(){
 		
 	});
+}
+
+function findUserByToken(token, onSuccess, onFail){
+	console.log("=> findUserByToken() started");
+	$.ajax({
+	    url: HOST + "/user/credentials?token=" + token,
+	    type: "GET",
+	    dataType: 'json',
+	    success : function(data){
+	    	onSuccess(data);
+	    }
+	}).fail(onFail);
 }
 
 function onAuthSuccess(){

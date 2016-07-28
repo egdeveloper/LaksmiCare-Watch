@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="http://yourdomain/LaksmiCareWatch" version="1.0.0" viewmodes="maximized">
-    <access origin="http://146.185.143.85:8080" subdomains="true"/>
+    <access origin="*" subdomains="true"/>
     <tizen:application id="YlCsNs7BoU.LaksmiCareWatch" package="YlCsNs7BoU" required_version="2.3.1"/>
     <content src="index.html"/>
     <feature name="http://tizen.org/feature/screen.size.normal"/>
