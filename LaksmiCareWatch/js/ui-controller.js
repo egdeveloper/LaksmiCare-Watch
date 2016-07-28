@@ -10,7 +10,12 @@ var counter = 0;
 
 $(document).ready(function() {
     genDeviceId();
+    
     document.addEventListener("rotarydetent", function(e) {
+    	if(pagePos == 1){
+        	var deviceId = document.getElementById("device-id");
+            deviceId.innerHTML = window.guid;
+        }
         if (e.detail.direction == "CW") {
             $("#page" + pagePos).removeClass("ui-page-active");
             pagePos = (++pagePos) % pageCount;
@@ -20,6 +25,7 @@ $(document).ready(function() {
             pagePos = pagePos != 0 ? (--pagePos) % pageCount : pageCount - 1;
             $("#page" + pagePos).addClass("ui-page-active");
         }
+        
     }, false);
 });
 
@@ -41,13 +47,16 @@ function genDeviceId(){
 		var tokens = db.transaction(["tokens"], "readwrite").objectStore("tokens");
 		req = tokens.get("default");
 		req.onsuccess = function(event){
-			if(req.result)
+			if(req.result){
 					console.log(req.result.guid);
+					window.guid = req.result.guid;
+			}
 			else{
 				window.guid = {name: "default", guid : generateGUID()};
 				tokens.put(window.guid);
+				alert("Device id registered! Device id = " + window.guid);
 			}
-			alert("Device id registered! Device id = " + window.guid);
+			
 		};
 	};
 	req.onerror = function(ev){
