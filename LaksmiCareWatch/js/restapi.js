@@ -20,7 +20,7 @@ function getConfident(){
 	}).done(function(data){
 		return data;
 	}).fail(function(){
-		
+		  
 	});
 }
 

@@ -88,7 +88,7 @@ function onchangedCB(hrmInfo) {
         console.log("heart");
         console.log("geo");
         var alarm = {
-            heartRate: 70,
+            heartRate: 70,  
             measureDate: "21 January",
             gpsPosition: {
                 latitude: 45,
